@@ -1,0 +1,59 @@
+/* Componente encargado de registrar y editar pacientes. */
+/* Animación suave al cargar el formulario */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mejoras en los inputs */
+.form-control {
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    transition: all 0.2s ease;
+    border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25 circle rgba(13, 110, 253, 0.1);
+    border-color: #0d6efd;
+}
+
+/* Etiquetas de los campos */
+.form-label {
+    font-size: 0.9rem;
+    color: #495057;
+    margin-bottom: 0.4rem;
+}
+
+/* Estilo de la tarjeta */
+.card {
+    border-radius: 12px;
+}
+
+/* Botón principal */
+.btn-primary {
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    background-color: #0d6efd;
+    border: none;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #0b5ed7;
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Feedback de error */
+.invalid-feedback {
+    font-size: 0.8rem;
+    font-weight: 500;
+}

@@ -36,12 +36,12 @@ export class App {
     nombre: ['', [Validators.required, Validators.minLength(3)]],
     cedula: [
       '',
-      [Validators.required, Validators.pattern(/^[0-9]{8,12}$/)]
+      [Validators.required, Validators.pattern(/^[0-9]{10}$/)]
     ],
     edad: [0, [Validators.required, Validators.min(0), Validators.max(120)]],
     telefono: [
       '',
-      [Validators.required, Validators.pattern(/^[0-9]{7,10}$/)]
+      [Validators.required, Validators.pattern(/^[0-9]{9}$/)]
     ],
     diagnostico: ['', [Validators.required, Validators.minLength(5)]]
   });

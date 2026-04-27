@@ -1,0 +1,76 @@
+<section class="card shadow-sm border-0 mb-4 animate-fade-in">
+  <div class="card-body p-4">
+    <h2 class="h5 mb-4 fw-bold text-primary">
+      <i class="bi" [class.bi-pencil-square]="modoEdicion()" [class.bi-person-plus-fill]="!modoEdicion()"></i>
+      {{ modoEdicion() ? ' Editar Datos del Paciente' : ' Registro de Nuevo Paciente' }}
+    </h2>
+
+    <form [formGroup]="formularioPaciente()" (ngSubmit)="onGuardar()">
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold" for="nombre">Nombre completo</label>
+          <input class="form-control" id="nombre" type="text" formControlName="nombre"
+                 [class.is-invalid]="obtenerError('nombre')" placeholder="Ej. Juan Pérez" />
+          @if (obtenerError('nombre')) {
+            <div class="invalid-feedback">{{ obtenerError('nombre') }}</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label fw-semibold" for="cedula">Cédula (10 dígitos)</label>
+          <input class="form-control" id="cedula" type="text" formControlName="cedula"
+                 [class.is-invalid]="obtenerError('cedula')" placeholder="0123456789" />
+          @if (obtenerError('cedula')) {
+            <div class="invalid-feedback">{{ obtenerError('cedula') }}</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold" for="edad">Edad</label>
+          <input class="form-control" id="edad" type="number" formControlName="edad"
+                 [class.is-invalid]="obtenerError('edad')" />
+          @if (obtenerError('edad')) {
+            <div class="invalid-feedback">{{ obtenerError('edad') }}</div>
+          }
+        </div>
+
+        <div class="col-12 col-md-8">
+          <label class="form-label fw-semibold" for="telefono">Teléfono (9 dígitos)</label>
+          <input class="form-control" id="telefono" type="text" formControlName="telefono"
+                 [class.is-invalid]="obtenerError('telefono')" placeholder="987654321" />
+          @if (obtenerError('telefono')) {
+            <div class="invalid-feedback">{{ obtenerError('telefono') }}</div>
+          }
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold" for="diagnostico">Diagnóstico</label>
+          <textarea class="form-control" id="diagnostico" rows="3" formControlName="diagnostico"
+                    [class.is-invalid]="obtenerError('diagnostico')" placeholder="Detalles médicos..."></textarea>
+          @if (obtenerError('diagnostico')) {
+            <div class="invalid-feedback">{{ obtenerError('diagnostico') }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-4 flex-wrap">
+        <button class="btn btn-primary px-4 shadow-sm" type="submit"
+                [disabled]="capacidadCompleta() && !modoEdicion()">
+          <span class="fw-bold">{{ modoEdicion() ? 'Actualizar Registro' : 'Registrar Paciente' }}</span>
+        </button>
+        
+        @if (modoEdicion()) {
+          <button class="btn btn-light border px-4" type="button" (click)="onCancelar()">
+            Cancelar
+          </button>
+        }
+      </div>
+      
+      @if (capacidadCompleta() && !modoEdicion()) {
+        <div class="alert alert-warning mt-3 py-2 small shadow-sm">
+          <i class="bi bi-exclamation-triangle"></i> Capacidad máxima de pacientes alcanzada (10/10).
+        </div>
+      }
+    </form>
+  </div>
+</section>
