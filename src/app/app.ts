@@ -14,11 +14,13 @@ import { Paciente } from './models/paciente.model';
 export class App {
   private readonly fb = new FormBuilder();
 
+  // Regla de negocio fija del enunciado: el hospital no admite mas de 10 pacientes.
   protected readonly capacidadMaxima = 10;
   protected readonly pacientes = signal<Paciente[]>([]);
   protected readonly modoEdicion = signal(false);
   protected readonly pacienteEditandoId = signal<number | null>(null);
 
+  // Signals derivados para reflejar el estado de aforo en tiempo real en la UI.
   protected readonly ocupacionActual = computed(() => this.pacientes().length);
   protected readonly cuposDisponibles = computed(
     () => this.capacidadMaxima - this.ocupacionActual()
@@ -32,12 +34,12 @@ export class App {
     nombre: ['', [Validators.required, Validators.minLength(3)]],
     cedula: [
       '',
-      [Validators.required, Validators.pattern(/^[0-9]{8,12}$/)]
+      [Validators.required, Validators.pattern(/^[0-9]{10}$/)]
     ],
     edad: [0, [Validators.required, Validators.min(0), Validators.max(120)]],
     telefono: [
       '',
-      [Validators.required, Validators.pattern(/^[0-9]{7,10}$/)]
+      [Validators.required, Validators.pattern(/^[0-9]{9}$/)]
     ],
     diagnostico: ['', [Validators.required, Validators.minLength(5)]]
   });
@@ -45,7 +47,7 @@ export class App {
   private ultimoId = 0;
 
   protected guardarPaciente(): void {
-
+    // Se normalizan datos antes de crear/actualizar para evitar espacios innecesarios.
     const valores = this.formularioPaciente.getRawValue();
     const pacienteBase = {
       nombre: valores.nombre.trim(),
@@ -70,6 +72,7 @@ export class App {
       return;
     }
 
+    // En modo creacion se respeta el aforo maximo.
     if (this.capacidadCompleta()) {
       return;
     }
@@ -85,6 +88,7 @@ export class App {
   }
 
   protected editarPaciente(paciente: Paciente): void {
+    // Carga datos existentes para editar sin perder validaciones del formulario.
     this.modoEdicion.set(true);
     this.pacienteEditandoId.set(paciente.id);
     this.formularioPaciente.patchValue({
@@ -97,6 +101,7 @@ export class App {
   }
 
   protected eliminarPaciente(id: number): void {
+    // Si se elimina el paciente que estaba en edicion, se limpia el formulario.
     this.pacientes.update((lista) => lista.filter((paciente) => paciente.id !== id));
     if (this.pacienteEditandoId() === id) {
       this.cancelarEdicion();
@@ -104,12 +109,14 @@ export class App {
   }
 
   protected cancelarEdicion(): void {
+    // Restaurar modo creacion para continuar el flujo normal del CRUD.
     this.modoEdicion.set(false);
     this.pacienteEditandoId.set(null);
     this.limpiarFormulario();
   }
 
   private limpiarFormulario(): void {
+    // Valores base del formulario para alta/edicion.
     this.formularioPaciente.reset({
       nombre: '',
       cedula: '',

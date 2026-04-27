@@ -1,4 +1,5 @@
 <main class="container py-4">
+  <!-- Componente 1: muestra aforo y regla de capacidad maxima -->
   <app-panel-aforo
     [ocupacionActual]="ocupacionActual()"
     [capacidadMaxima]="capacidadMaxima"
@@ -7,6 +8,7 @@
     [modoEdicion]="modoEdicion()"
   />
 
+  <!-- Componente 2: captura/edicion de datos del paciente -->
   <app-paciente-form
     [formularioPaciente]="formularioPaciente"
     [modoEdicion]="modoEdicion()"
@@ -15,6 +17,7 @@
     (cancelar)="cancelarEdicion()"
   />
 
+  <!-- Componente 3: lectura del CRUD (tabla) y acciones editar/eliminar -->
   <app-paciente-list
     [pacientes]="pacientes()"
     (editar)="editarPaciente($event)"

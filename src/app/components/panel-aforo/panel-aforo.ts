@@ -9,6 +9,7 @@ import { Component, input } from '@angular/core';
 export class PanelAforoComponent {
   // Este componente centraliza la informacion del aforo para mantener
   // visible la regla principal de negocio (maximo 10 pacientes).
+  // Recibe datos desde App para no duplicar logica de negocio.
   readonly ocupacionActual = input.required<number>();
   readonly capacidadMaxima = input.required<number>();
   readonly cuposDisponibles = input.required<number>();

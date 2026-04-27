@@ -1,12 +1,15 @@
 <section class="card shadow-sm mb-4">
   <div class="card-body">
+    <!-- Encabezado general del modulo hospitalario -->
     <h1 class="h3 mb-1">Hospital Dr. Sano - Gestion de Pacientes</h1>
+    <!-- Indicadores principales para controlar aforo -->
     <p class="text-body-secondary mb-0">
       Ocupacion: {{ ocupacionActual() }}/{{ capacidadMaxima() }} pacientes
     </p>
     <p class="text-body-secondary mb-0">
       Cupos disponibles: {{ cuposDisponibles() }}
     </p>
+    <!-- Alerta visible solo cuando se alcanza la capacidad -->
     @if (capacidadCompleta() && !modoEdicion()) {
       <div class="alert alert-warning mt-3 mb-0" role="alert">
         Se alcanzo el aforo maximo. Elimine un paciente para registrar uno nuevo.

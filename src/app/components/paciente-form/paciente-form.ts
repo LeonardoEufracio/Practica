@@ -10,6 +10,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class PacienteFormComponent {
   // Este componente contiene solo la captura/validacion de datos.
   // Asi el formulario queda reutilizable y separado del listado.
+  // El estado real del CRUD se mantiene en App y llega por inputs/outputs.
   readonly formularioPaciente = input.required<FormGroup>();
   readonly modoEdicion = input.required<boolean>();
   readonly capacidadCompleta = input.required<boolean>();
@@ -18,6 +19,7 @@ export class PacienteFormComponent {
   readonly cancelar = output<void>();
 
   onGuardar(): void {
+    // Marca campos para mostrar errores cuando el usuario intenta guardar invalido.
     if (this.formularioPaciente().invalid) {
       this.formularioPaciente().markAllAsTouched();
       return;
@@ -26,10 +28,12 @@ export class PacienteFormComponent {
   }
 
   onCancelar(): void {
+    // Notifica al componente padre para salir del modo edicion.
     this.cancelar.emit();
   }
 
   obtenerError(control: string): string {
+    // Centraliza los mensajes de validacion para no repetir logica en HTML.
     const campo = this.formularioPaciente().get(control);
     if (!campo || !campo.touched || !campo.errors) {
       return '';
