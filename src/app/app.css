@@ -1,9 +1,26 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background: linear-gradient(180deg, #eef5ff 0%, #f8f9fa 40%);
+}
+
+.dashboard {
+  max-width: 1080px;
 }
 
 .card {
-  border: 0;
+  border: 1px solid #e9edf3;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.card .card-body {
+  padding: 1.25rem;
+}
+
+@media (max-width: 576px) {
+  .card .card-body {
+    padding: 1rem;
+  }
 }

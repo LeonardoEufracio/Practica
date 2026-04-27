@@ -1,15 +1,26 @@
-<section class="card shadow-sm mb-4">
+<section class="card shadow-sm mb-4 paciente-form-card">
   <div class="card-body">
     <!-- El titulo cambia segun si se crea o se actualiza un paciente -->
-    <h2 class="h5 mb-3">
-      {{ modoEdicion() ? 'Editar paciente' : 'Registrar paciente' }}
-    </h2>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+      <h2 class="h5 mb-0">
+        {{ modoEdicion() ? 'Editar paciente' : 'Registrar paciente' }}
+      </h2>
+      <span class="badge rounded-pill text-bg-primary-subtle text-primary-emphasis px-3 py-2">
+        Formulario clinico
+      </span>
+    </div>
     <!-- Formulario reactivo con validaciones por campo -->
     <form [formGroup]="formularioPaciente()" (ngSubmit)="onGuardar()">
       <div class="row g-3">
         <div class="col-12 col-md-6">
           <label class="form-label" for="nombre">Nombre completo</label>
-          <input class="form-control" id="nombre" type="text" formControlName="nombre" />
+          <input
+            class="form-control"
+            id="nombre"
+            type="text"
+            placeholder="Ej: Maria Perez"
+            formControlName="nombre"
+          />
           @if (obtenerError('nombre')) {
             <small class="text-danger">{{ obtenerError('nombre') }}</small>
           }
@@ -17,7 +28,13 @@
 
         <div class="col-12 col-md-6">
           <label class="form-label" for="cedula">Cedula</label>
-          <input class="form-control" id="cedula" type="text" formControlName="cedula" />
+          <input
+            class="form-control"
+            id="cedula"
+            type="text"
+            placeholder="Solo numeros"
+            formControlName="cedula"
+          />
           @if (obtenerError('cedula')) {
             <small class="text-danger">{{ obtenerError('cedula') }}</small>
           }
@@ -25,7 +42,7 @@
 
         <div class="col-12 col-md-4">
           <label class="form-label" for="edad">Edad</label>
-          <input class="form-control" id="edad" type="number" formControlName="edad" />
+          <input class="form-control" id="edad" type="number" min="0" formControlName="edad" />
           @if (obtenerError('edad')) {
             <small class="text-danger">{{ obtenerError('edad') }}</small>
           }
@@ -33,7 +50,13 @@
 
         <div class="col-12 col-md-8">
           <label class="form-label" for="telefono">Telefono</label>
-          <input class="form-control" id="telefono" type="text" formControlName="telefono" />
+          <input
+            class="form-control"
+            id="telefono"
+            type="text"
+            placeholder="Ej: 987654321"
+            formControlName="telefono"
+          />
           @if (obtenerError('telefono')) {
             <small class="text-danger">{{ obtenerError('telefono') }}</small>
           }
@@ -45,6 +68,7 @@
             class="form-control"
             id="diagnostico"
             rows="3"
+            placeholder="Describe el diagnostico preliminar"
             formControlName="diagnostico"
           ></textarea>
           @if (obtenerError('diagnostico')) {
@@ -54,7 +78,7 @@
       </div>
 
       <!-- Acciones principales del formulario -->
-      <div class="d-flex gap-2 mt-4 flex-wrap">
+      <div class="d-flex gap-2 mt-4 flex-wrap justify-content-end">
         <button
           class="btn btn-primary"
           type="submit"

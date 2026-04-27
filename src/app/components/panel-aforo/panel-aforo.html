@@ -1,14 +1,30 @@
-<section class="card shadow-sm mb-4">
+<section class="card shadow-sm mb-4 panel-aforo">
   <div class="card-body">
     <!-- Encabezado general del modulo hospitalario -->
-    <h1 class="h3 mb-1">Hospital Dr. Sano - Gestion de Pacientes</h1>
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+      <div>
+        <p class="text-uppercase small fw-semibold text-primary mb-1">Unidad de atencion</p>
+        <h1 class="h3 mb-0">Hospital Dr. Sano - Gestion de Pacientes</h1>
+      </div>
+      <span class="badge text-bg-light border">Capacidad maxima: {{ capacidadMaxima() }}</span>
+    </div>
     <!-- Indicadores principales para controlar aforo -->
-    <p class="text-body-secondary mb-0">
-      Ocupacion: {{ ocupacionActual() }}/{{ capacidadMaxima() }} pacientes
-    </p>
-    <p class="text-body-secondary mb-0">
-      Cupos disponibles: {{ cuposDisponibles() }}
-    </p>
+    <div class="row g-3 metricas">
+      <div class="col-12 col-md-6">
+        <div class="metrica-box">
+          <p class="text-body-secondary mb-1">Ocupacion actual</p>
+          <p class="mb-0 fs-5 fw-semibold">
+            {{ ocupacionActual() }}/{{ capacidadMaxima() }} pacientes
+          </p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="metrica-box">
+          <p class="text-body-secondary mb-1">Cupos disponibles</p>
+          <p class="mb-0 fs-5 fw-semibold">{{ cuposDisponibles() }}</p>
+        </div>
+      </div>
+    </div>
     <!-- Alerta visible solo cuando se alcanza la capacidad -->
     @if (capacidadCompleta() && !modoEdicion()) {
       <div class="alert alert-warning mt-3 mb-0" role="alert">

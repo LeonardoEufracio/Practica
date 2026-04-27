@@ -1,1 +1,11 @@
 /* Componente encargado de mostrar pacientes y acciones CRUD. */
+.paciente-list-card thead th {
+  background-color: #f3f6fb;
+  color: #334155;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.paciente-list-card tbody td {
+  vertical-align: middle;
+}

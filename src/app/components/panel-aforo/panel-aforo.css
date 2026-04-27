@@ -1,1 +1,7 @@
 /* Componente visual de estado de capacidad del hospital. */
+.panel-aforo .metrica-box {
+  border: 1px solid #e9edf3;
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  background: #f8fbff;
+}

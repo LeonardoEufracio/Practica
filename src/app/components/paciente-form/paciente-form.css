@@ -1,1 +1,15 @@
 /* Componente encargado de registrar y editar pacientes. */
+.paciente-form-card .form-label {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.paciente-form-card .form-control {
+  border-radius: 10px;
+  border-color: #dfe5ee;
+}
+
+.paciente-form-card .form-control:focus {
+  border-color: #7da2ff;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
