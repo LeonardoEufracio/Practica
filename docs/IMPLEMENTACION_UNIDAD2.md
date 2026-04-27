@@ -9,9 +9,12 @@ Desarrollar una aplicacion web en Angular 21 para gestionar pacientes del hospit
 - Bootstrap 5 para estilos y comportamiento responsive.
 
 ## Estructura de la solucion
-- `src/app/app.ts`: logica principal del CRUD y reglas de negocio.
-- `src/app/app.html`: interfaz de usuario, formulario y tabla de pacientes.
-- `src/app/app.css`: estilos puntuales del componente.
+- `src/app/app.ts`: orquestador del estado con `signals` y reglas de negocio CRUD.
+- `src/app/app.html`: compone la pagina usando componentes especializados.
+- `src/app/models/paciente.model.ts`: contrato de datos del paciente.
+- `src/app/components/panel-aforo/*`: muestra aforo, cupos y alerta de capacidad.
+- `src/app/components/paciente-form/*`: formulario reactivo para crear/editar pacientes.
+- `src/app/components/paciente-list/*`: tabla responsive para listar, editar y eliminar.
 - `src/styles.css`: import de Bootstrap y estilos globales.
 
 ## Modelo de datos
@@ -51,6 +54,14 @@ Se almacenan 6 campos, cumpliendo el requisito de minimo 5 datos.
   - `capacidadCompleta` (computed)
 
 Esto permite una vista reactiva y consistente sin manejar estado manual imperativo en el HTML.
+
+## Uso de componentes para cumplir el objetivo
+- Se aplica separacion de responsabilidades:
+  - `panel-aforo`: comunica la regla de aforo maximo.
+  - `paciente-form`: concentra captura y validacion de datos.
+  - `paciente-list`: concentra visualizacion y acciones de lectura/edicion/eliminacion.
+- `app` mantiene las reglas de negocio y coordina eventos entre componentes.
+- Esta estructura facilita mantenimiento, pruebas y defensa tecnica del proyecto.
 
 ## Validaciones implementadas
 - `nombre`: obligatorio, minimo 3 caracteres.

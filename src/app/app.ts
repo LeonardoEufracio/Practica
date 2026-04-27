@@ -1,18 +1,13 @@
 import { Component, computed, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-
-type Paciente = {
-  id: number;
-  nombre: string;
-  cedula: string;
-  edad: number;
-  telefono: string;
-  diagnostico: string;
-};
+import { FormBuilder, Validators } from '@angular/forms';
+import { PanelAforoComponent } from './components/panel-aforo/panel-aforo';
+import { PacienteFormComponent } from './components/paciente-form/paciente-form';
+import { PacienteListComponent } from './components/paciente-list/paciente-list';
+import { Paciente } from './models/paciente.model';
 
 @Component({
   selector: 'app-root',
-  imports: [ReactiveFormsModule],
+  imports: [PanelAforoComponent, PacienteFormComponent, PacienteListComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -32,6 +27,7 @@ export class App {
     () => this.ocupacionActual() >= this.capacidadMaxima
   );
 
+  // El estado global queda en App para coordinar todo el CRUD con signals.
   protected readonly formularioPaciente = this.fb.nonNullable.group({
     nombre: ['', [Validators.required, Validators.minLength(3)]],
     cedula: [
@@ -49,10 +45,6 @@ export class App {
   private ultimoId = 0;
 
   protected guardarPaciente(): void {
-    if (this.formularioPaciente.invalid) {
-      this.formularioPaciente.markAllAsTouched();
-      return;
-    }
 
     const valores = this.formularioPaciente.getRawValue();
     const pacienteBase = {
@@ -115,31 +107,6 @@ export class App {
     this.modoEdicion.set(false);
     this.pacienteEditandoId.set(null);
     this.limpiarFormulario();
-  }
-
-  protected obtenerError(control: keyof typeof this.formularioPaciente.controls): string {
-    const campo = this.formularioPaciente.controls[control];
-    if (!campo.touched || !campo.errors) {
-      return '';
-    }
-
-    if (campo.errors['required']) {
-      return 'Este campo es obligatorio.';
-    }
-    if (campo.errors['minlength']) {
-      return `Debe tener al menos ${campo.errors['minlength'].requiredLength} caracteres.`;
-    }
-    if (campo.errors['pattern']) {
-      return 'El formato ingresado no es valido.';
-    }
-    if (campo.errors['min']) {
-      return `El valor minimo permitido es ${campo.errors['min'].min}.`;
-    }
-    if (campo.errors['max']) {
-      return `El valor maximo permitido es ${campo.errors['max'].max}.`;
-    }
-
-    return 'Dato invalido.';
   }
 
   private limpiarFormulario(): void {
